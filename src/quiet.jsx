@@ -150,7 +150,7 @@ export default function QuietAIPage() {
               },
               {
                 quote: "Since upgrading to Pro, my productivity has become imMUTEable. Get it?",
-                name: "Rafael Silenceberg",
+                name: "Rafael Silenceson",
                 title: "Productivity Enthusiast",
               },
             ].map((t, i) => (
