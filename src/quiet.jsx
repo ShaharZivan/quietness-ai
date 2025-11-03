@@ -102,7 +102,7 @@ export default function QuietAIPage() {
               },
               {
                 icon: <Brain className="h-6 w-6" />, title: "Generative Stillness Engine",
-                body: "A frontier model trained to say less — then nothing at all — with state‑of‑the‑art abstention layers.",
+                body: "A frontier model engineered to know when to stop talking: Before it begins.",
               },
               {
                 icon: <Cloud className="h-6 w-6" />, title: "QuietCloud™ Edge",
