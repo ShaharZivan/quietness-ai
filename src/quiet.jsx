@@ -54,7 +54,7 @@ export default function QuietAIPage() {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="mt-8 flex flex-col sm:flex-row gap-3 justify-center"
           >
-            <Button size="lg" className="rounded-2xl">Start your free hush</Button>
+            <Button size="lg" className="rounded-2xl">Start for free</Button>
             <Button size="lg" variant="outline" className="rounded-2xl">Hear nothing (demo)</Button>
           </motion.div>
         </div>
