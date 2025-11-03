@@ -118,7 +118,7 @@ export default function QuietAIPage() {
               },
               {
                 icon: <Waves className="h-6 w-6" />, title: "Artisanal Silence Packs",
-                body: "Select from curated silences: Anechoic, Arctic Dusk, Library Rare, and Open Office Friday 6PM.",
+                body: "Select from curated silences: Anechoic, Arctic Dusk, Library Rare, and Zoom meetings with an elderly relative searching for the unmute button.",
               },
             ].map((f, i) => (
               <Card key={i} className="rounded-2xl">
