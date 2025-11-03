@@ -46,7 +46,7 @@ export default function QuietAIPage() {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="mt-6 text-lg md:text-xl text-center text-gray-600 max-w-3xl mx-auto"
           >
-            Meet the Generative Stillness Engine™ — trained on 10,000+ hours of premium, hand‑curated quiet from the world’s calmest monasteries, anechoic chambers, and open‑plan offices at 3am.
+            Meet the Generative Stillness Engine™ — trained on 10,000+ hours of premium, hand‑curated quiet from the world’s calmest monasteries, anechoic chambers, and open‑plan offices at 6pm.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
