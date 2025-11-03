@@ -173,7 +173,7 @@ export default function QuietAIPage() {
         <div className="mx-auto max-w-6xl px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold">Choose your quiet</h2>
-            <p className="text-gray-600 mt-3">Transparent pricing. Opaque sound.</p>
+            <p className="text-gray-600 mt-3">Silence is golden, and gold isn’t cheap.</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
