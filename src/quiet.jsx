@@ -149,7 +149,7 @@ export default function QuietAIPage() {
                 title: "CTO, Calmify Labs",
               },
               {
-                quote: "Since upgrading to Pro, my productivity doubled. Probably.",
+                quote: "Since upgrading to Pro, my productivity has become immutable. As in, impeccably mute. Is that what that word means?",
                 name: "Rafael Silenceberg",
                 title: "Productivity Enthusiast",
               },
