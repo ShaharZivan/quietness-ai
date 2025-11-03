@@ -114,7 +114,7 @@ export default function QuietAIPage() {
               },
               {
                 icon: <Shield className="h-6 w-6" />, title: "Compliance & Privacy",
-                body: "SOC 2, ISO 27001, and Monastic Vows v3 certified. We never listen — we promise.",
+                body: "SOC 2, ISO 27001, and Monastic Vows v3 certified. We never listen — because there’s nothing to listen to.",
               },
               {
                 icon: <Waves className="h-6 w-6" />, title: "Artisanal Silence Packs",
