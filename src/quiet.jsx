@@ -11,17 +11,59 @@ export default function QuietAIPage() {
   const [copied, setCopied] = useState(false);
   const [apiKey] = useState(() => {
     const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    let key = 'quiet_';
+    let key = 'shhh_';
     for (let i = 0; i < 32; i++) {
       key += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     return key;
   });
+  const [apiResponse, setApiResponse] = useState(null);
+  const [apiLoading, setApiLoading] = useState(false);
+  const [testApiKey, setTestApiKey] = useState('');
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(apiKey);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const tryApi = async () => {
+    setApiLoading(true);
+    setApiResponse(null);
+
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 800));
+
+    // Check if API key is valid (must start with "shhh_")
+    if (!testApiKey || !testApiKey.startsWith('shhh_')) {
+      setApiResponse({
+        status: 403,
+        statusText: 'Forbidden',
+        headers: {
+          'date': new Date().toUTCString(),
+          'server': 'quietness-edge',
+          'x-request-id': Math.random().toString(36).substring(2, 15),
+        },
+        error: 'Invalid API key.',
+      });
+      setApiLoading(false);
+      return;
+    }
+
+    // Fake a successful 204 No Content response
+    setApiResponse({
+      status: 204,
+      statusText: 'No Content',
+      headers: {
+        'date': new Date().toUTCString(),
+        'server': 'quietness-edge',
+        'x-silence-duration': '60000ms',
+        'x-profile': 'digital',
+        'x-request-id': Math.random().toString(36).substring(2, 15),
+      },
+    });
+
+    setApiLoading(false);
   };
   return (
     <div className="min-h-screen bg-white text-gray-900">
@@ -262,7 +304,7 @@ export default function QuietAIPage() {
       {/* API */}
       <section id="api" className="py-20">
         <div className="mx-auto max-w-6xl px-4">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
+          <div className="grid md:grid-cols-2 gap-8 items-start">
             <div>
               <h3 className="text-2xl md:text-3xl font-bold">NullWave™ API</h3>
               <p className="text-gray-600 mt-3">Build on nothing. Our REST API returns only the highest quality 204 No Content responses. Webhooks available for absolute quiet confirmation events.</p>
@@ -347,6 +389,45 @@ export default function QuietAIPage() {
                   <li><span className="font-mono text-xs bg-white px-2 py-0.5 rounded">digital</span> — Clean. Crisp. Pure.</li>
                   <li><span className="font-mono text-xs bg-white px-2 py-0.5 rounded">analog</span> — Warm. Natural. Earthy.</li>
                 </ul>
+              </div>
+              <div className="p-4 bg-white rounded-xl border">
+                <div className="text-sm font-semibold mb-2">Try it live</div>
+                <p className="text-xs text-gray-600 mb-3">Test the API and see the beautiful silence in action.</p>
+                <div className="mb-3">
+                  <label className="text-xs text-gray-600 block mb-1">API Key</label>
+                  <input
+                    type="text"
+                    value={testApiKey}
+                    onChange={(e) => setTestApiKey(e.target.value)}
+                    placeholder="shhh_..."
+                    className="w-full px-3 py-2 text-sm font-mono border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
+                  />
+                </div>
+                <Button
+                  onClick={tryApi}
+                  disabled={apiLoading}
+                  className="w-full rounded-lg mb-3"
+                  size="sm"
+                >
+                  {apiLoading ? 'Generating silence...' : 'Send API Request'}
+                </Button>
+                {apiResponse && (
+                  <div className="mt-3 p-3 bg-gray-900 text-gray-100 rounded-lg text-xs font-mono">
+                    <div className={apiResponse.status === 204 ? "text-green-400" : "text-red-400"}>
+                      HTTP/1.1 {apiResponse.status} {apiResponse.statusText}
+                    </div>
+                    <div className="mt-2 text-gray-400">
+                      {Object.entries(apiResponse.headers).map(([key, value]) => (
+                        <div key={key}>{key}: {value}</div>
+                      ))}
+                    </div>
+                    {apiResponse.error && (
+                      <div className="mt-3 p-2 bg-red-900/30 text-red-300 rounded">
+                        {apiResponse.error}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </div>
