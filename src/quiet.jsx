@@ -263,24 +263,34 @@ export default function QuietAIPage() {
                 <Button variant="outline" className="rounded-2xl"><Cloud className="h-4 w-4 mr-2"/>Get API key</Button>
               </div>
             </div>
-            <Card className="rounded-2xl">
-              <CardHeader>
-                <CardTitle>curl example</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <pre className="bg-gray-900 text-gray-100 p-4 rounded-xl text-sm overflow-auto">
+            <div className="space-y-6">
+              <Card className="rounded-2xl">
+                <CardHeader>
+                  <CardTitle>curl example</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <pre className="bg-gray-900 text-gray-100 p-4 rounded-xl text-sm overflow-auto">
 {`curl -X POST https://api.quietness.ai/v1/generate \
   -H "Authorization: Bearer shhh_****************" \
   -H "Content-Type: application/json" \
   -d '{
     "model": "gse-quiet-3",
     "silence_pack": "anechoic",
+    "profile": "digital",
     "duration_ms": 60000
   }'
 # HTTP/1.1 204 No Content`}
-                </pre>
-              </CardContent>
-            </Card>
+                  </pre>
+                </CardContent>
+              </Card>
+              <div className="p-4 bg-gray-50 rounded-xl border">
+                <div className="text-sm font-semibold mb-2">Silence Profiles</div>
+                <ul className="text-sm text-gray-600 space-y-1">
+                  <li><span className="font-mono text-xs bg-white px-2 py-0.5 rounded">digital</span> — Clean. Crisp. Pure.</li>
+                  <li><span className="font-mono text-xs bg-white px-2 py-0.5 rounded">analog</span> — Warm. Natural. Earthy.</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </section>
