@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function QuietAIPage() {
   const [apiDialogOpen, setApiDialogOpen] = useState(false);
@@ -20,6 +20,15 @@ export default function QuietAIPage() {
   const [apiResponse, setApiResponse] = useState(null);
   const [apiLoading, setApiLoading] = useState(false);
   const [testApiKey, setTestApiKey] = useState('');
+  const [showSpecialOffer, setShowSpecialOffer] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSpecialOffer(true);
+    }, 10000); // 10 seconds
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(apiKey);
@@ -460,6 +469,62 @@ export default function QuietAIPage() {
           </div>
         </div>
       </footer>
+
+      {/* Special Offer Dialog */}
+      <Dialog open={showSpecialOffer} onOpenChange={setShowSpecialOffer}>
+        <DialogContent className="sm:max-w-2xl">
+          <DialogHeader>
+            <div className="flex items-center gap-2 mb-2">
+              <Badge className="bg-gradient-to-r from-purple-600 to-pink-600 text-white">Limited Time Offer</Badge>
+            </div>
+            <DialogTitle className="text-2xl">Unlock Premium Silence from Around the World</DialogTitle>
+            <DialogDescription>
+              Experience curated silence captured from the world's most serene locations. Complete tiers to unlock exotic experiences.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="grid gap-3">
+              <div className="p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl border border-blue-200">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-semibold text-blue-900">Arctic Silence</span>
+                  <Badge variant="secondary" className="text-xs">Tier 1</Badge>
+                </div>
+                <p className="text-sm text-blue-700">AI-trained on -40°C Norwegian Arctic data. Pure, crystalline nothingness.</p>
+              </div>
+              <div className="p-4 bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl border border-amber-200">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-semibold text-amber-900">Hawaiian Silence</span>
+                  <Badge variant="secondary" className="text-xs">Tier 2</Badge>
+                </div>
+                <p className="text-sm text-amber-700">Generated from Maui sunrise stillness models. Warm, tropical tranquility.</p>
+              </div>
+              <div className="p-4 bg-gradient-to-r from-slate-50 to-gray-50 rounded-xl border border-slate-200">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-semibold text-slate-900">Lunar Silence</span>
+                  <Badge variant="secondary" className="text-xs">Tier 3 - Premium</Badge>
+                </div>
+                <p className="text-sm text-slate-700">Trained on Apollo mission data. The AI-generated silence of space itself.</p>
+              </div>
+            </div>
+            <div className="p-4 bg-gray-900 text-white rounded-xl">
+              <div className="flex items-center justify-between mb-3">
+                <div>
+                  <div className="text-lg font-bold">SilencePass — Season 1</div>
+                  <div className="text-sm text-gray-400">Access all tiers + weekly drops</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-2xl font-bold">$39.99</div>
+                  <div className="text-xs text-gray-400 line-through">$79.99</div>
+                </div>
+              </div>
+              <Button className="w-full rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700">
+                Get SilencePass Now
+              </Button>
+              <p className="text-xs text-gray-400 mt-2 text-center">🔥 Only 47 passes left at this price!</p>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
