@@ -356,7 +356,7 @@ export default function QuietAIPage() {
                       <p className="font-semibold mb-1">Rate limits:</p>
                       <ul className="list-disc list-inside space-y-0.5">
                         <li>∞ quiet-calls per minute</li>
-                        <li>Max duration per request: 60 minutes</li>
+                        <li>Max duration/request: 60 minutes</li>
                       </ul>
                     </div>
                   </DialogContent>
