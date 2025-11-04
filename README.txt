@@ -1,13 +1,14 @@
-Quietness.ai — Vite + React (JSX) + Tailwind starter
+# 🧘‍♂️ Quietness.ai  
+> *Reinventing nothing, beautifully.*
 
-Files you provide:
-  - src/quiet.jsx   <-- Put your Quietness.ai page here (default export)
+Welcome to **Quietness.ai**, the world’s leading platform for *AI-powered absence*.  
+This repository contains the full front-end stack required to experience total auditory neutrality — locally, on your own hardware, in glorious zero decibels.
 
-Commands:
-  npm install
-  npm run dev
+---
 
-Notes:
-  - Path alias '@' points to 'src', so '@/components/ui/button' resolves to 'src/components/ui/button.jsx'
-  - Minimal UI components are included to satisfy imports from your page.
-  - Tailwind is pre-wired. Edit tailwind.config.js if you change paths.
+## ⚙️ Installation  
+
+We recommend running the following commands in complete silence:  
+```bash
+npm install
+npm run dev
