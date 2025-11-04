@@ -1,10 +1,28 @@
 import { motion } from "framer-motion";
-import { Brain, VolumeX, Waves, Cloud, Zap, Shield, BadgeCheck, Rocket, Newspaper, Star } from "lucide-react";
+import { Brain, VolumeX, Waves, Cloud, Zap, Shield, BadgeCheck, Rocket, Newspaper, Star, Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { useState } from "react";
 
 export default function QuietAIPage() {
+  const [apiDialogOpen, setApiDialogOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [apiKey] = useState(() => {
+    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let key = 'quiet_';
+    for (let i = 0; i < 32; i++) {
+      key += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return key;
+  });
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(apiKey);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
   return (
     <div className="min-h-screen bg-white text-gray-900">
       {/* Nav */}
@@ -259,8 +277,48 @@ export default function QuietAIPage() {
                 ))}
               </div>
               <div className="mt-6 flex gap-3">
-                <Button className="rounded-2xl"><CodeIcon/> Read the docs</Button>
-                <Button variant="outline" className="rounded-2xl"><Cloud className="h-4 w-4 mr-2"/>Get API key</Button>
+                <Button asChild className="rounded-2xl">
+                  <a href="https://en.wikipedia.org/wiki/Silence" target="_blank" rel="noopener noreferrer">
+                    <CodeIcon/> Read the docs
+                  </a>
+                </Button>
+                <Dialog open={apiDialogOpen} onOpenChange={setApiDialogOpen}>
+                  <DialogTrigger asChild>
+                    <Button variant="outline" className="rounded-2xl"><Cloud className="h-4 w-4 mr-2"/>Get API key</Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-md">
+                    <DialogHeader>
+                      <DialogTitle>Your API Key</DialogTitle>
+                      <DialogDescription>
+                        Your unique API key for accessing the NullWave™ API. Keep this secret and never commit it to version control.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="flex items-center space-x-2">
+                      <div className="grid flex-1 gap-2">
+                        <div className="relative">
+                          <code className="block w-full rounded-md bg-gray-100 px-3 py-2 text-sm font-mono border break-all">
+                            {apiKey}
+                          </code>
+                        </div>
+                      </div>
+                      <Button
+                        type="button"
+                        size="sm"
+                        className="px-3"
+                        onClick={copyToClipboard}
+                      >
+                        {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                      </Button>
+                    </div>
+                    <div className="text-xs text-gray-500 mt-2">
+                      <p className="font-semibold mb-1">Rate limits:</p>
+                      <ul className="list-disc list-inside space-y-0.5">
+                        <li>∞ quiet-calls per minute</li>
+                        <li>Max duration per request: 60 minutes</li>
+                      </ul>
+                    </div>
+                  </DialogContent>
+                </Dialog>
               </div>
             </div>
             <div className="space-y-6">
