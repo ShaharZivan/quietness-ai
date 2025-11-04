@@ -106,7 +106,7 @@ export default function QuietAIPage() {
               },
               {
                 icon: <Cloud className="h-6 w-6" />, title: "QuietCloud™ Edge",
-                body: "Zero‑trust, on‑device muteness with seamless cloud fallback. Your silence, your data.",
+                body: "Zero-trust, on-device muteness with seamless cloud fallback — ensuring your silence is never heard by anyone but you.",
               },
               {
                 icon: <Zap className="h-6 w-6" />, title: "NullWave API",
