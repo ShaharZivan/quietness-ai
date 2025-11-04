@@ -98,7 +98,7 @@ export default function QuietAIPage() {
             {[
               {
                 icon: <VolumeX className="h-6 w-6" />, title: "Adaptive Noise Modeling™",
-                body: "Real‑time synthesis of subtractive hush tailored to your environment, mood, and calendar events.",
+                body: "Powered by deep affective learning, we recalibrate silence to match your internal disquiet in real time.",
               },
               {
                 icon: <Brain className="h-6 w-6" />, title: "Generative Stillness Engine",
