@@ -5,8 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function QuietAIPage() {
+  const navigate = useNavigate();
   const [apiDialogOpen, setApiDialogOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [apiKey] = useState(() => {
@@ -21,6 +23,7 @@ export default function QuietAIPage() {
   const [apiLoading, setApiLoading] = useState(false);
   const [testApiKey, setTestApiKey] = useState('');
   const [showSpecialOffer, setShowSpecialOffer] = useState(false);
+  const [username, setUsername] = useState(() => localStorage.getItem("quietness_username") || "");
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -29,6 +32,21 @@ export default function QuietAIPage() {
 
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    // Listen for changes to username in localStorage
+    const handleStorageChange = () => {
+      setUsername(localStorage.getItem("quietness_username") || "");
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
+
+  const handleSignOut = () => {
+    localStorage.removeItem("quietness_username");
+    setUsername("");
+  };
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(apiKey);
@@ -91,7 +109,18 @@ export default function QuietAIPage() {
             <a href="#about" className="hover:underline">About</a>
           </div>
           <div className="flex items-center gap-3">
-            <Button variant="ghost" className="rounded-2xl">Sign in</Button>
+            {username ? (
+              <>
+                <span className="text-sm text-gray-700">Hello, {username}</span>
+                <Button variant="ghost" className="rounded-2xl" onClick={handleSignOut}>
+                  Sign out
+                </Button>
+              </>
+            ) : (
+              <Button variant="ghost" className="rounded-2xl" onClick={() => navigate('/signin')}>
+                Sign in
+              </Button>
+            )}
             <Button className="rounded-2xl">Experience the Quiet</Button>
           </div>
         </div>
@@ -302,7 +331,16 @@ export default function QuietAIPage() {
                       </li>
                     ))}
                   </ul>
-                  <Button className="w-full mt-6 rounded-2xl">{p.cta}</Button>
+                  <Button
+                    className="w-full mt-6 rounded-2xl"
+                    onClick={() => {
+                      if (p.name === "Pro") {
+                        navigate('/payment?plan=pro');
+                      }
+                    }}
+                  >
+                    {p.cta}
+                  </Button>
                 </CardContent>
               </Card>
             ))}
@@ -517,7 +555,10 @@ export default function QuietAIPage() {
                   <div className="text-xs text-gray-400 line-through">$79.99</div>
                 </div>
               </div>
-              <Button className="w-full rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700">
+              <Button
+                className="w-full rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                onClick={() => navigate('/payment?plan=silencepass')}
+              >
                 Get SilencePass Now
               </Button>
               <p className="text-xs text-gray-400 mt-2 text-center">🔥 Only 47 passes left at this price!</p>
