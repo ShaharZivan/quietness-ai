@@ -81,14 +81,14 @@ export default function SuccessPage() {
               Return to Quietness.ai
             </Button>
             <p className="text-xs text-gray-500">
-              Feel free to share this experience with friends who also appreciate quality silence.
+              Feel free to share this experience with people who also appreciate quality silence.
             </p>
           </div>
 
           <div className="mt-8 pt-8 border-t text-sm text-gray-500">
             <p className="mb-3">
               P.S. If you genuinely want to support absurdist tech satire projects,
-              consider following us or sharing this with your colleagues.
+              consider following us on social media sharing this with your colleagues.
             </p>
             <div className="flex gap-4 justify-center">
               <a
