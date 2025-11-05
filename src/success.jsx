@@ -88,7 +88,7 @@ export default function SuccessPage() {
           <div className="mt-8 pt-8 border-t text-sm text-gray-500">
             <p className="mb-3">
               P.S. If you genuinely want to support absurdist tech satire projects,
-              consider following us on social media sharing this with your colleagues.
+              consider following us on social media and sharing this with your colleagues.
             </p>
             <div className="flex gap-4 justify-center">
               <a
