@@ -373,7 +373,18 @@ export default function QuietAIPage() {
                 </Button>
                 <Dialog open={apiDialogOpen} onOpenChange={setApiDialogOpen}>
                   <DialogTrigger asChild>
-                    <Button variant="outline" className="rounded-2xl"><Cloud className="h-4 w-4 mr-2"/>Get API key</Button>
+                    <Button
+                      variant="outline"
+                      className="rounded-2xl"
+                      onClick={(e) => {
+                        if (!username) {
+                          e.preventDefault();
+                          navigate('/signin');
+                        }
+                      }}
+                    >
+                      <Cloud className="h-4 w-4 mr-2"/>Get API key
+                    </Button>
                   </DialogTrigger>
                   <DialogContent className="sm:max-w-md">
                     <DialogHeader>
