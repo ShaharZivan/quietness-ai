@@ -250,7 +250,7 @@ export default function CareersPage() {
               variant="secondary"
               size="lg"
               className="rounded-xl"
-              onClick={() => navigate('/contact')}
+              onClick={() => navigate('/contact?type=apply&position=General Application')}
             >
               Submit General Application
             </Button>
