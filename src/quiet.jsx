@@ -129,7 +129,12 @@ export default function QuietAIPage() {
                 Sign in
               </Button>
             )}
-            <Button className="rounded-2xl">Experience the Quiet</Button>
+            <Button
+              className="rounded-2xl"
+              onClick={() => navigate(username ? '/player' : '/signin')}
+            >
+              Experience the Quiet
+            </Button>
           </div>
         </div>
       </header>

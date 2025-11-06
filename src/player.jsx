@@ -17,11 +17,106 @@ export default function SilencePlayerPage() {
   const [showAdModal, setShowAdModal] = useState(false);
   const [adCountdown, setAdCountdown] = useState(15);
   const [adWatched, setAdWatched] = useState(false);
+  const [currentAd, setCurrentAd] = useState(null);
   const audioRef = useRef(null);
   const intervalRef = useRef(null);
   const adIntervalRef = useRef(null);
 
   const FREE_TIER_LIMIT = 300; // 5 minutes in seconds
+
+  // Bank of fake ads
+  const fakeAds = [
+    {
+      gradient: "from-red-950 via-rose-900 to-stone-900",
+      border: "border-rose-800",
+      title: "GARLÍQ™",
+      titleColor: "text-red-100",
+      tagline: "Confidence should never fear the night.",
+      taglineColor: "text-rose-200",
+      description: "Distilled at midnight beneath a waning moon, GARLÍQ™ blends cold-pressed Mediterranean garlic with notes of clove, cedar, and sheer defiance. A bold scent for men who want to make an impression — and repel the undead (or anyone within a ten-meter radius).",
+      badges: [
+        { text: "100% Organic Garlic Essence", color: "bg-red-800 text-red-50" },
+        { text: "SPF (Supernatural Protection Factor) 50", color: "bg-red-800 text-red-50" },
+        { text: "Cruelty-Free*", color: "bg-red-800 text-red-50" }
+      ],
+      price: "$49.99 — each bottle sealed in holy water",
+      priceColor: "text-rose-100",
+      disclaimer: "*Except to vampires, and to any romantic partners you go near within 72 hours of use.",
+      disclaimerColor: "text-red-200"
+    },
+    {
+      gradient: "from-blue-900 via-indigo-900 to-purple-950",
+      border: "border-blue-700",
+      title: "ThoughtChain™",
+      titleColor: "text-blue-100",
+      tagline: "Your ideas. On the blockchain. Forever.",
+      taglineColor: "text-blue-200",
+      description: "Why settle for thinking thoughts that disappear? With ThoughtChain™, every thought you have is permanently recorded on an immutable, decentralized ledger. Your shower thoughts? Minted as NFTs. That random idea about a restaurant for dogs? Timestamped for eternity. Never forget what you were thinking at 3:47 AM on a Tuesday again.",
+      badges: [
+        { text: "Web3-Native", color: "bg-blue-800 text-blue-50" },
+        { text: "DAO Governed", color: "bg-blue-800 text-blue-50" },
+        { text: "Proof-of-Think Protocol", color: "bg-blue-800 text-blue-50" }
+      ],
+      price: "$299/month + gas fees",
+      priceColor: "text-blue-100",
+      disclaimer: "*Requires compatible neural implant (sold separately, $12,999). Thoughts cannot be deleted or modified once minted.",
+      disclaimerColor: "text-blue-200"
+    },
+    {
+      gradient: "from-amber-900 via-yellow-900 to-orange-950",
+      border: "border-amber-700",
+      title: "Cruci-Fix™",
+      titleColor: "text-amber-100",
+      tagline: "Keeping Your Faith in Fighting Shape",
+      taglineColor: "text-yellow-200",
+      description: "Broke your crucifix fending off the undead? Bent out of shape after Tuesday's vampire attack? Cruci-Fix™ offers same-day repairs, re-blessings, and emergency holy water top-ups. Our certified clergy work around the clock to restore your sacred defenses. Because you never know when they'll strike again.",
+      badges: [
+        { text: "Vatican Approved", color: "bg-amber-800 text-amber-50" },
+        { text: "24/7 Emergency Service", color: "bg-amber-800 text-amber-50" },
+        { text: "Free Stake Sharpening with Service", color: "bg-amber-800 text-amber-50" }
+      ],
+      price: "$79.99 per repair + blessing",
+      priceColor: "text-amber-100",
+      disclaimer: "*Cruci-Fix™ not liable for smiting-related collateral damage, spontaneous Latin chanting, or minor demonic side effects.",
+      disclaimerColor: "text-yellow-200"
+    },
+    {
+      gradient: "from-green-950 via-emerald-900 to-teal-950",
+      border: "border-green-700",
+      title: "EcoLeaf™ Premium Oxygen",
+      titleColor: "text-green-100",
+      tagline: "Breathe Better. Live Consciously.",
+      taglineColor: "text-emerald-200",
+      description: "Regular air just isn't enough anymore. EcoLeaf™ Premium Oxygen is ethically sourced from sustainable rainforests, triple-filtered, and infused with essence of mindfulness. Each breath supports reforestation efforts and carbon-neutral living. Now with 30% more O₂ molecules per inhale!",
+      badges: [
+        { text: "B-Corp Certified", color: "bg-green-800 text-green-50" },
+        { text: "Vegan Friendly", color: "bg-green-800 text-green-50" },
+        { text: "Non-GMO Air", color: "bg-green-800 text-green-50" }
+      ],
+      price: "$149/month subscription",
+      priceColor: "text-green-100",
+      disclaimer: "*Results not guaranteed. EcoLeaf™ oxygen tanks sold separately ($799). Not responsible for hypoxia if regular air is discontinued.",
+      disclaimerColor: "text-emerald-200"
+    },
+    {
+      gradient: "from-purple-900 via-fuchsia-900 to-pink-950",
+      border: "border-purple-700",
+      title: "CacophonAI™",
+      titleColor: "text-purple-100",
+      tagline: "Absolute Annoyance, Guaranteed",
+      taglineColor: "text-fuchsia-200",
+      description: "Tired of all this silence? CacophonAI™ uses advanced AI to generate perfectly chaotic noise specifically designed to annoy you. From car alarms to leaf blowers to someone eating chips too close to their mic, our proprietary algorithms create the most grating sounds imaginable. Why would you want this? We don't know. But here it is.",
+      badges: [
+        { text: "ML-Generated Chaos", color: "bg-purple-800 text-purple-50" },
+        { text: "Guaranteed Headache", color: "bg-purple-800 text-purple-50" },
+        { text: "1000+ Annoying Sounds", color: "bg-purple-800 text-purple-50" }
+      ],
+      price: "$19.99/month",
+      priceColor: "text-purple-100",
+      disclaimer: "*Includes: screaming babies, construction at 6am, dial-up modem sounds, and your upstairs neighbor's 2am workout routine.",
+      disclaimerColor: "text-fuchsia-200"
+    }
+  ];
 
   // Redirect if not logged in
   useEffect(() => {
@@ -39,6 +134,9 @@ export default function SilencePlayerPage() {
           // Check if we've hit the 5-minute limit
           if (newTime >= FREE_TIER_LIMIT && !adWatched) {
             setIsPlaying(false);
+            // Select a random ad
+            const randomAd = fakeAds[Math.floor(Math.random() * fakeAds.length)];
+            setCurrentAd(randomAd);
             setShowAdModal(true);
             if (audioRef.current?.audioContext?.state === 'running') {
               audioRef.current.audioContext.suspend();
@@ -57,7 +155,7 @@ export default function SilencePlayerPage() {
         clearInterval(intervalRef.current);
       }
     };
-  }, [isPlaying, adWatched]);
+  }, [isPlaying, adWatched, fakeAds]);
 
   // Ad countdown timer
   useEffect(() => {
@@ -404,29 +502,35 @@ export default function SilencePlayerPage() {
             </p>
 
             {/* Fake Ad Content */}
-<div className="bg-gradient-to-br from-red-950 via-rose-900 to-stone-900 p-8 rounded-xl text-gray-100 text-center space-y-4 border border-rose-800 shadow-lg">
-  <div className="text-4xl font-extrabold tracking-tight text-red-100 drop-shadow-md">GARLÍQ™</div>
-  <p className="text-xl italic text-rose-200">Confidence should never fear the night.</p>
+            {currentAd && (
+              <div className={`bg-gradient-to-br ${currentAd.gradient} p-8 rounded-xl text-gray-100 text-center space-y-4 border ${currentAd.border} shadow-lg`}>
+                <div className={`text-4xl font-extrabold tracking-tight ${currentAd.titleColor} drop-shadow-md`}>
+                  {currentAd.title}
+                </div>
+                <p className={`text-xl italic ${currentAd.taglineColor}`}>
+                  {currentAd.tagline}
+                </p>
 
-  <p className="text-lg opacity-90">
-    Distilled at midnight beneath a waning moon, GARLÍQ™ blends cold-pressed Mediterranean garlic
-    with notes of clove, cedar, and sheer defiance.  
-    A bold scent for men who want to make an impression — and repel the undead (or anyone within a ten-meter radius).
-  </p>
+                <p className="text-lg opacity-90">
+                  {currentAd.description}
+                </p>
 
-  <div className="flex items-center justify-center gap-3 text-sm">
-    <Badge className="bg-red-800 text-red-50 text-xs">100% Organic Garlic Essence</Badge>
-    <Badge className="bg-red-800 text-red-50 text-xs">SPF (Supernatural Protection Factor) 50</Badge>
-    <Badge className="bg-red-800 text-red-50 text-xs">Cruelty-Free*</Badge>
-  </div>
+                <div className="flex items-center justify-center gap-3 text-sm flex-wrap">
+                  {currentAd.badges.map((badge, index) => (
+                    <Badge key={index} className={`${badge.color} text-xs`}>
+                      {badge.text}
+                    </Badge>
+                  ))}
+                </div>
 
-  <p className="text-2xl font-bold mt-4 text-rose-100">
-    $49.99 — each bottle sealed in holy water
-  </p>
-  <p className="text-xs opacity-80 text-red-200 italic">
-    *Except to vampires, and to any romantic partners you go near within 72 hours of use.*
-  </p>
-</div>
+                <p className={`text-2xl font-bold mt-4 ${currentAd.priceColor}`}>
+                  {currentAd.price}
+                </p>
+                <p className={`text-xs opacity-80 ${currentAd.disclaimerColor} italic`}>
+                  {currentAd.disclaimer}
+                </p>
+              </div>
+            )}
 
 
 
