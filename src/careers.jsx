@@ -114,7 +114,7 @@ export default function CareersPage() {
         "Experience with content that doesn't say anything",
         "Deep understanding of SEO for pages with no text",
         "Ability to write compelling copy about nothing",
-        "Track record of campaigns with zero engagement (intentionally)"
+        "Track record of campaigns with zero engagement"
       ]
     },
     {
