@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Play, Pause, VolumeX, Waves, Moon, Library, Mountain, Building2 } from "lucide-react";
+import { Play, Pause, VolumeX, Waves, Moon, Library, Mountain, Building2, Settings2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -18,11 +18,20 @@ export default function SilencePlayerPage() {
   const [adCountdown, setAdCountdown] = useState(15);
   const [adWatched, setAdWatched] = useState(false);
   const [currentAd, setCurrentAd] = useState(null);
+  const [selectedProfile, setSelectedProfile] = useState('digital');
   const audioRef = useRef(null);
   const intervalRef = useRef(null);
   const adIntervalRef = useRef(null);
 
   const FREE_TIER_LIMIT = 300; // 5 minutes in seconds
+
+  // Silence profiles
+  const silenceProfiles = [
+    { id: 'digital', name: 'Digital', description: 'Clean. Crisp. Pure.' },
+    { id: 'analog', name: 'Analog', description: 'Warm. Natural. Earthy.' },
+    { id: 'quantum', name: 'Quantum', description: 'Uncertain. Untouched. Unheard.' },
+    { id: 'none', name: 'None', description: 'Absolute. Pure. Void.' }
+  ];
 
   // Bank of fake ads
   const fakeAds = [
@@ -460,6 +469,32 @@ export default function SilencePlayerPage() {
                       {volume > 25 && volume <= 50 && "Pure absence"}
                       {volume > 50 && volume <= 75 && "Profound stillness"}
                       {volume > 75 && "Maximum tranquility"}
+                    </p>
+                  </div>
+
+                  {/* Silence Profile Selector */}
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <Settings2 className="h-4 w-4" />
+                      Silence Profile
+                    </div>
+                    <div className="grid grid-cols-4 gap-2">
+                      {silenceProfiles.map((profile) => (
+                        <button
+                          key={profile.id}
+                          onClick={() => setSelectedProfile(profile.id)}
+                          className={`px-3 py-2 rounded-lg text-xs font-mono transition-all ${
+                            selectedProfile === profile.id
+                              ? 'bg-gray-900 text-white'
+                              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          }`}
+                        >
+                          {profile.name}
+                        </button>
+                      ))}
+                    </div>
+                    <p className="text-xs text-gray-500 text-center italic">
+                      {silenceProfiles.find(p => p.id === selectedProfile)?.description}
                     </p>
                   </div>
 
