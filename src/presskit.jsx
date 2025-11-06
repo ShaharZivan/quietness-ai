@@ -126,8 +126,7 @@ export default function PressKitPage() {
                 </p>
               </div>
             </div>
-
-            <div className="mt-10 pt-8 border-t">
+            <div className="mt-6 pt-4 border-t">
               <Button
                 onClick={() => navigate('/')}
                 className="w-full rounded-xl bg-gray-900 hover:bg-gray-800"
