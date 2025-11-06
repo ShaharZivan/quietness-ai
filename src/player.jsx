@@ -237,7 +237,7 @@ export default function SilencePlayerPage() {
               Select Your <span className="bg-gradient-to-r from-gray-900 to-gray-500 bg-clip-text text-transparent">Silence</span>
             </h1>
             <p className="mt-4 text-lg text-center text-gray-600 max-w-2xl mx-auto">
-              Select from our curated collection of artisanal silences, each AI-enhanced for maximum tranquility.
+              Choose from our curated collection of artisanal silences, each AI-enhanced for maximum tranquility.
             </p>
           </motion.div>
 
