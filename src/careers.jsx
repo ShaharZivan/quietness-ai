@@ -66,7 +66,7 @@ export default function CareersPage() {
       ]
     },
     {
-      title: "Quiet Customer Success Manager",
+      title: "Customer Success Manager",
       department: "Customer Success",
       location: "Remote (Do Not Call)",
       type: "Full-time",
