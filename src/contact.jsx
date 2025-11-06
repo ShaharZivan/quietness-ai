@@ -83,7 +83,7 @@ export default function ContactPage() {
       <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 bg-white/80 border-b">
         <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-8 w-8 rounded-xl bg-gray-900 flex items-center justify-center text-white font-bold">Q</div>
+            <img src="/icon.jpeg" alt="Quietness.ai" className="h-8 w-8 rounded-xl" />
             <span className="font-semibold tracking-tight">Quietness.ai</span>
           </div>
           <Button variant="ghost" className="rounded-2xl" onClick={() => navigate('/')}>

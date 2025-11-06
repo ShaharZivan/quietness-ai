@@ -108,7 +108,7 @@ export default function PaymentPage() {
       <header className="bg-white border-b">
         <div className="mx-auto max-w-4xl px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-8 w-8 rounded-xl bg-gray-900 flex items-center justify-center text-white font-bold">Q</div>
+            <img src="/icon.jpeg" alt="Quietness.ai" className="h-8 w-8 rounded-xl" />
             <span className="font-semibold tracking-tight">Quietness.ai</span>
           </div>
           <Badge variant="secondary">Secure Checkout</Badge>

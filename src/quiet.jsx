@@ -106,7 +106,7 @@ export default function QuietAIPage() {
       <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 bg-white/80 border-b">
         <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-8 w-8 rounded-xl bg-gray-900 flex items-center justify-center text-white font-bold">Q</div>
+            <img src="/icon.jpeg" alt="Quietness.ai" className="h-8 w-8 rounded-xl" />
             <span className="font-semibold tracking-tight">Quietness.ai</span>
             <Badge variant="secondary" className="ml-2">Beta</Badge>
           </div>
@@ -527,7 +527,7 @@ export default function QuietAIPage() {
       {/* Footer */}
       <footer className="py-10">
         <div className="mx-auto max-w-6xl px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-600">
-          <div className="flex items-center gap-2"><div className="h-6 w-6 rounded-lg bg-gray-900 text-white flex items-center justify-center text-xs font-bold">Q</div><span>© 2025 Quietness.ai</span></div>
+          <div className="flex items-center gap-2"><img src="/icon.jpeg" alt="Quietness.ai" className="h-6 w-6 rounded-lg" /><span>© 2025 Quietness.ai</span></div>
           <div className="flex items-center gap-4">
             <a className="hover:underline" href="#">Security</a>
             <a className="hover:underline" href="#">Status</a>
