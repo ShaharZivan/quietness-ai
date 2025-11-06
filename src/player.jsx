@@ -78,7 +78,7 @@ export default function SilencePlayerPage() {
       titleColor: "text-amber-100",
       tagline: "Keeping Your Faith in Fighting Shape",
       taglineColor: "text-yellow-200",
-      description: "Broke your crucifix fending off the undead? Bent out of shape after Tuesday's vampire attack? Cruci-Fix™ offers same-day repairs, re-blessings, and emergency holy water top-ups. Our certified clergy work around the clock to restore your sacred defenses. Because you never know when they'll strike again.",
+      description: "Broke your cross fending off the undead? Bent out of shape after Tuesday's vampire attack? Cruci-Fix™ offers same-day repairs, re-blessings, and emergency holy water top-ups. Our certified clergy work around the clock to restore your sacred defenses. Because you never know when they'll strike again.",
       badges: [
         { text: "Vatican Approved", color: "bg-amber-800 text-amber-50" },
         { text: "24/7 Emergency Service", color: "bg-amber-800 text-amber-50" },
