@@ -529,7 +529,7 @@ export default function QuietAIPage() {
         <div className="mx-auto max-w-6xl px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-600">
           <div className="flex items-center gap-2"><img src="/icon.jpeg" alt="Quietness.ai" className="h-6 w-6 rounded-lg" /><span>© 2025 Quietness.ai</span></div>
           <div className="flex items-center gap-4">
-            <a className="hover:underline" href="#">Security</a>
+            <a className="hover:underline cursor-pointer" onClick={() => navigate('/security')}>Security</a>
             <a className="hover:underline cursor-pointer" onClick={() => navigate('/status')}>Status</a>
             <a className="hover:underline cursor-pointer" onClick={() => navigate('/presskit')}>Press Kit</a>
             <a className="hover:underline cursor-pointer" onClick={() => navigate('/careers')}>Careers</a>
