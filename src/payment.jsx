@@ -18,21 +18,37 @@ export default function PaymentPage() {
   const [showFirstWarning, setShowFirstWarning] = useState(false);
   const [showSecondWarning, setShowSecondWarning] = useState(false);
   const [attempted, setAttempted] = useState(false);
+  const [promoCode, setPromoCode] = useState('');
+  const [promoApplied, setPromoApplied] = useState(false);
 
   const planDetails = {
     pro: {
       name: "Pro",
-      price: "$12.00",
+      price: 12.00,
       description: "24‑bit dynamic silence",
     },
     silencepass: {
       name: "SilencePass — Season 1",
-      price: "$39.99",
+      price: 39.99,
       description: "Access all tiers + weekly drops",
     }
   };
 
   const currentPlan = planDetails[plan];
+
+  // Calculate prices
+  const basePrice = currentPlan.price;
+  const discountAmount = promoApplied ? basePrice * 0.30 : 0;
+  const finalPrice = basePrice - discountAmount;
+
+  const handlePromoChange = (value) => {
+    setPromoCode(value.toUpperCase());
+    if (value.toUpperCase() === 'QUIET') {
+      setPromoApplied(true);
+    } else {
+      setPromoApplied(false);
+    }
+  };
 
   const isFormValid = () => {
     const month = parseInt(expiryDate.substring(0, 2));
@@ -129,15 +145,43 @@ export default function PaymentPage() {
                 <div className="space-y-3 text-sm">
                   <div className="flex justify-between">
                     <span className="text-gray-600">Subtotal</span>
-                    <span className="font-semibold">{currentPlan.price}</span>
+                    <span className="font-semibold">${basePrice.toFixed(2)}</span>
                   </div>
+                  {promoApplied && (
+                    <div className="flex justify-between text-green-600">
+                      <span>Discount (QUIET - 30%)</span>
+                      <span className="font-semibold">-${discountAmount.toFixed(2)}</span>
+                    </div>
+                  )}
                   <div className="flex justify-between">
                     <span className="text-gray-600">Tax</span>
                     <span className="font-semibold">$0.00</span>
                   </div>
                   <div className="border-t pt-3 flex justify-between text-lg">
                     <span className="font-bold">Total</span>
-                    <span className="font-bold">{currentPlan.price}</span>
+                    <span className="font-bold">${finalPrice.toFixed(2)}</span>
+                  </div>
+                </div>
+                <div className="mt-4">
+                  <label className="text-sm font-medium block mb-2">Promo Code</label>
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={promoCode}
+                      onChange={(e) => handlePromoChange(e.target.value)}
+                      placeholder="Enter code"
+                      className={`flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 uppercase ${
+                        promoApplied
+                          ? 'border-green-500 focus:ring-green-500 bg-green-50'
+                          : 'border-gray-300 focus:ring-gray-900'
+                      }`}
+                      maxLength="10"
+                    />
+                    {promoApplied && (
+                      <div className="flex items-center text-green-600 font-semibold text-sm">
+                        ✓ Applied
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className="mt-4 p-3 bg-gray-50 rounded-lg text-xs text-gray-600">
@@ -284,7 +328,7 @@ export default function PaymentPage() {
                     type="submit"
                     className="w-full rounded-xl py-6 text-lg font-semibold"
                   >
-                    Pay {currentPlan.price}
+                    Pay ${finalPrice.toFixed(2)}
                   </Button>
                   <p className="text-xs text-gray-500 text-center">
                     🔒 Your payment information is secure and encrypted
