@@ -26,11 +26,19 @@ export default function QuietAIPage() {
   const [username, setUsername] = useState(() => localStorage.getItem("quietness_username") || "");
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowSpecialOffer(true);
-    }, 10000); // 10 seconds
+    // 50% chance to show the offer
+    const shouldShow = Math.random() < 0.5;
 
-    return () => clearTimeout(timer);
+    if (shouldShow) {
+      // Random delay between 10 and 30 seconds
+      const delay = Math.floor(Math.random() * (30000 - 10000 + 1)) + 10000;
+
+      const timer = setTimeout(() => {
+        setShowSpecialOffer(true);
+      }, delay);
+
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   useEffect(() => {
@@ -336,6 +344,8 @@ export default function QuietAIPage() {
                     onClick={() => {
                       if (p.name === "Pro") {
                         navigate('/payment?plan=pro');
+                      } else if (p.cta === "Talk to sales") {
+                        navigate('/contact');
                       }
                     }}
                   >
@@ -441,11 +451,19 @@ export default function QuietAIPage() {
                   </pre>
                 </CardContent>
               </Card>
-              <div className="p-4 bg-gray-50 rounded-xl border">
-                <div className="text-sm font-semibold mb-2">Silence Profiles</div>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li><span className="font-mono text-xs bg-white px-2 py-0.5 rounded">digital</span> — Clean. Crisp. Pure.</li>
-                  <li><span className="font-mono text-xs bg-white px-2 py-0.5 rounded">analog</span> — Warm. Natural. Earthy.</li>
+              <div className="p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <Badge className="bg-blue-600 text-white text-xs">New</Badge>
+                  <div className="text-sm font-semibold text-gray-900">Silence Profiles — Now Available</div>
+                </div>
+                <p className="text-xs text-gray-700 mb-3">
+                  Customize your silence with our newly released <code className="bg-white px-1.5 py-0.5 rounded text-xs">profile</code> parameter. Maximum personalization, zero sound.
+                </p>
+                <ul className="text-sm text-gray-700 space-y-1">
+                  <li><span className="font-mono text-xs bg-white px-2 py-0.5 rounded border">digital</span> — Clean. Crisp. Pure.</li>
+                  <li><span className="font-mono text-xs bg-white px-2 py-0.5 rounded border">analog</span> — Warm. Natural. Earthy.</li>
+                  <li><span className="font-mono text-xs bg-white px-2 py-0.5 rounded border">quantum</span> — Uncertain. Untouched. Unheard.</li>
+                  <li><span className="font-mono text-xs bg-white px-2 py-0.5 rounded border">none</span> — Absolute. Pure. Void.</li>
                 </ul>
               </div>
               <div className="p-4 bg-white rounded-xl border">
@@ -499,7 +517,7 @@ export default function QuietAIPage() {
           <p className="text-gray-300 mt-3 max-w-2xl mx-auto">Join thousands of users embracing premium, AI‑enhanced absence. No distractions. No noise. No notes.</p>
           <div className="mt-6 flex gap-3 justify-center">
             <Button size="lg" variant="secondary" className="rounded-2xl">Start free</Button>
-            <Button size="lg" variant="outline" className="bg-white text-gray-900 hover:bg-gray-100 rounded-2xl">
+            <Button size="lg" variant="outline" className="bg-white text-gray-900 hover:bg-gray-100 rounded-2xl" onClick={() => navigate('/contact')}>
               Talk to sales
             </Button>
           </div>
@@ -513,7 +531,7 @@ export default function QuietAIPage() {
           <div className="flex items-center gap-4">
             <a className="hover:underline" href="#">Security</a>
             <a className="hover:underline" href="#">Status</a>
-            <a className="hover:underline" href="#">Press Kit</a>
+            <a className="hover:underline cursor-pointer" onClick={() => navigate('/presskit')}>Press Kit</a>
             <a className="hover:underline" href="#">Careers</a>
           </div>
         </div>
