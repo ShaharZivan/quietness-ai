@@ -196,7 +196,7 @@ export default function ContactPage() {
                 type="submit"
                 className="w-full rounded-xl bg-gray-900 hover:bg-gray-800"
               >
-                Submit (and enjoy the silence)
+                Submit
               </Button>
             </form>
           </CardContent>
