@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -9,10 +9,14 @@ import { CheckCircle } from "lucide-react";
 
 export default function ContactPage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const type = searchParams.get("type") || "sales"; // 'sales' or 'apply'
+  const position = searchParams.get("position") || "";
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    subject: "",
+    subject: position ? `Application: ${position}` : "",
     message: ""
   });
   const [submitted, setSubmitted] = useState(false);
@@ -91,18 +95,31 @@ export default function ContactPage() {
       {/* Contact Form */}
       <div className="mx-auto max-w-2xl px-4 py-16">
         <div className="text-center mb-8">
-          <Badge variant="secondary" className="rounded-2xl mb-4">Contact Sales</Badge>
-          <h1 className="text-4xl font-bold mb-4">Talk to Sales</h1>
+          <Badge variant="secondary" className="rounded-2xl mb-4">
+            {type === "apply" ? "Job Application" : "Contact Sales"}
+          </Badge>
+          <h1 className="text-4xl font-bold mb-4">
+            {type === "apply" ? "Apply to Quietness.ai" : "Talk to Sales"}
+          </h1>
           <p className="text-lg text-gray-600">
-            Leave us your details, and you <strong>won't</strong> hear from us soon. Guaranteed.
+            {type === "apply" ? (
+              <>Submit your application and we <strong>won't</strong> review it. We won't even open it.</>
+            ) : (
+              <>Leave us your details, and you <strong>won't</strong> hear from us soon. Guaranteed.</>
+            )}
           </p>
         </div>
 
         <Card className="rounded-2xl shadow-xl">
           <CardHeader>
-            <CardTitle>Send us a message</CardTitle>
+            <CardTitle>
+              {type === "apply" ? "Submit your application" : "Send us a message"}
+            </CardTitle>
             <p className="text-sm text-gray-600 mt-2">
-              Fill out the form below and experience the future of customer non-engagement.
+              {type === "apply"
+                ? "Fill out the form below and experience the art of being professionally ignored."
+                : "Fill out the form below and experience the future of customer non-engagement."
+              }
             </p>
           </CardHeader>
           <CardContent>

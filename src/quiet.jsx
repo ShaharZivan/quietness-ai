@@ -532,7 +532,7 @@ export default function QuietAIPage() {
             <a className="hover:underline" href="#">Security</a>
             <a className="hover:underline" href="#">Status</a>
             <a className="hover:underline cursor-pointer" onClick={() => navigate('/presskit')}>Press Kit</a>
-            <a className="hover:underline" href="#">Careers</a>
+            <a className="hover:underline cursor-pointer" onClick={() => navigate('/careers')}>Careers</a>
           </div>
         </div>
       </footer>

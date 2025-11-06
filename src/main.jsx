@@ -8,6 +8,7 @@ import SuccessPage from './success.jsx'
 import SignInPage from './signin.jsx'
 import PressKitPage from './presskit.jsx'
 import ContactPage from './contact.jsx'
+import CareersPage from './careers.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -19,6 +20,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/signin" element={<SignInPage />} />
         <Route path="/presskit" element={<PressKitPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/careers" element={<CareersPage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
