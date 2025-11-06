@@ -11,6 +11,7 @@ import ContactPage from './contact.jsx'
 import CareersPage from './careers.jsx'
 import StatusPage from './status.jsx'
 import SecurityPage from './security.jsx'
+import SilencePlayerPage from './player.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/success" element={<SuccessPage />} />
         <Route path="/signin" element={<SignInPage />} />
+        <Route path="/player" element={<SilencePlayerPage />} />
         <Route path="/presskit" element={<PressKitPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/careers" element={<CareersPage />} />

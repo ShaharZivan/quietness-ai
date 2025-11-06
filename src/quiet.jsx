@@ -160,7 +160,13 @@ export default function QuietAIPage() {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="mt-8 flex flex-col sm:flex-row gap-3 justify-center"
           >
-            <Button size="lg" className="rounded-2xl">Start for free</Button>
+            <Button
+              size="lg"
+              className="rounded-2xl"
+              onClick={() => navigate(username ? '/player' : '/signin')}
+            >
+              Start for free
+            </Button>
             <Button size="lg" variant="outline" className="rounded-2xl">Hear nothing (demo)</Button>
           </motion.div>
         </div>
@@ -516,7 +522,14 @@ export default function QuietAIPage() {
           <h3 className="text-3xl md:text-4xl font-bold">Ready to hear nothing?</h3>
           <p className="text-gray-300 mt-3 max-w-2xl mx-auto">Join thousands of users embracing premium, AI‑enhanced absence. No distractions. No noise. No notes.</p>
           <div className="mt-6 flex gap-3 justify-center">
-            <Button size="lg" variant="secondary" className="rounded-2xl">Start free</Button>
+            <Button
+              size="lg"
+              variant="secondary"
+              className="rounded-2xl"
+              onClick={() => navigate(username ? '/player' : '/signin')}
+            >
+              Start free
+            </Button>
             <Button size="lg" variant="outline" className="bg-white text-gray-900 hover:bg-gray-100 rounded-2xl" onClick={() => navigate('/contact')}>
               Talk to sales
             </Button>
